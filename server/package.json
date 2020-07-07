@@ -1,0 +1,11 @@
+{
+  "name": "dgo_server",
+  "version": "0.1.0",
+  "description": "Server for the Don't Go Over game.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eric Henry",
+  "license": "ISC"
+}
