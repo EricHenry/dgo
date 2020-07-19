@@ -1,16 +1,21 @@
+let gameDescription = "This is a description of the game";
 [@react.component]
-let make = () =>
+let make = () => 
     <>
         <MaterialUi_CssBaseline />
         <Navbar />
         MaterialUi.(
-            <Grid container=true>
-                <Grid item={true} xs=`V2>
-                    "Grid item"->React.string
-                </Grid>
-                <Grid item={true} xs={`V3}>
-                    "Another Grid item"->React.string 
-                </Grid>
-            </Grid>
+            <Box component={`String("span")}>
+                <Container>
+                    <Grid container=true alignItems=`Center direction=`Column>
+                        <Grid item=true>
+                            <Typography variant=`H4>gameDescription</Typography>
+                        </Grid>
+                        <Grid item=true>
+                            "Another Grid item"->React.string 
+                        </Grid>
+                    </Grid>
+                </Container>
+            </Box>
         )
     </>
