@@ -1,31 +1,27 @@
 package usecases
 
 import (
-	"github.com/erichenry/dgo/domain/entities"
-	"github.com/erichenry/dgo/domain/repositories"
-	"github.com/erichenry/dgo/domain/services"
+	"github.com/erichenry/dgo/domain"
 
 	"github.com/google/uuid"
 )
 
 type ItemUsecase interface {
-	ListItems() ([]*entities.Item, error)
-	SaveItem(*entities.Item) error
+	ListItems() ([]*domain.Item, error)
+	SaveItem(name, description string, price float32) (domain.Item, error)
 }
 
 type itemUsecase struct {
-	repo    repositories.ItemRepository
-	service *services.ItemService
+	repo domain.ItemRepository
 }
 
-func NewItemUsecase(repo repositories.ItemRepository, service *services.ItemService) *itemUsecase {
+func NewItemUsecase(repo domain.ItemRepository) *itemUsecase {
 	return &itemUsecase{
-		repo:    repo,
-		service: service,
+		repo: repo,
 	}
 }
 
-func (i *itemUsecase) ListItems() (items []*entities.Item, err error) {
+func (i *itemUsecase) ListItems() (items []*domain.Item, err error) {
 	items, err = i.repo.FindAll()
 	if err != nil {
 		return nil, err
@@ -33,13 +29,13 @@ func (i *itemUsecase) ListItems() (items []*entities.Item, err error) {
 	return items, nil
 }
 
-func (i *itemUsecase) SaveItem(name, description string, price float32) (item *entities.Item, err error) {
+func (i *itemUsecase) SaveItem(name, description string, price float32) (item *domain.Item, err error) {
 	id, err := uuid.NewRandom()
 	if err != nil {
 		return nil, err
 	}
 
-	item = entities.NewItem(id, name, description, price)
+	item = domain.NewItem(id, name, description, price)
 	err = i.repo.Save(item)
 	if err != nil {
 		return nil, err
